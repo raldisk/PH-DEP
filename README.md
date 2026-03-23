@@ -2,6 +2,12 @@
 
 <div align="center">
 
+<img src="https://capsule-render.vercel.app/api?type=waving&color=0:1a1a2e,50:16213e,100:0f3460&height=180&section=header&text=PH-DEP&fontSize=52&fontColor=e94560&fontAlignY=38&desc=Philippine%20Data%20Engineering%20Projects&descAlignY=60&descColor=ffffff&animation=fadeIn" width="100%"/>
+
+</div>
+
+<div align="center">
+
 ```
 PH-DEP/
 ├── PH-FX-Dashboard/        ← Exchange rate tracking
@@ -14,20 +20,6 @@ PH-DEP/
 </div>
 
 ---
-
-<div align="center">
-
-```svg
-<!--
-  Banner: paste this block into https://vecta.io/nano or any SVG renderer
-  to preview — or let GitHub render it directly via the <img> tag below.
--->
-```
-
-<!-- SVG Banner (GitHub renders inline SVGs in README via img tag) -->
-<img src="banner.svg" alt="PH-DEP project structure" width="100%"/>
-
-</div>
 
 > A monorepo consolidating Philippine macroeconomic and social data engineering projects.
 > Each subfolder is a self-contained project with its own `README.md`, data pipeline,
@@ -56,34 +48,34 @@ Consumer price index monitoring across commodity groups and regional markets.
 
 ## Repository Structure
 
-Each project lives in its own subfolder and retains its independent commit history (imported via `git subtree add --squash`). The original source repositories remain active on GitHub.
+Each project lives in its own subfolder and retains its independent commit history, imported via `git subtree add --squash`. `PH-DEP` is the single source of truth for all projects.
 
-| Project | Source Repo | Status |
+| Project | Description | Status |
 |---|---|---|
-| PH-FX-Dashboard | [raldisk/PH-FX-Dashboard](https://github.com/raldisk/PH-FX-Dashboard) | active |
-| PH-Regional-Inequality | [raldisk/PH-Regional-Inequality](https://github.com/raldisk/PH-Regional-Inequality) | active |
-| PH-Economic-Tracker | [raldisk/PH-Economic-Tracker](https://github.com/raldisk/PH-Economic-Tracker) | active |
-| PH-Labor-Analysis | [raldisk/PH-Labor-Analysis](https://github.com/raldisk/PH-Labor-Analysis) | active |
-| PH-Price-Tracker | [raldisk/PH-Price-Tracker](https://github.com/raldisk/PH-Price-Tracker) | active |
+| PH-FX-Dashboard | Exchange rate tracking | active |
+| PH-Regional-Inequality | Socioeconomic disparity analysis | active |
+| PH-Economic-Tracker | Macro indicator monitoring | active |
+| PH-Labor-Analysis | Labor market data | active |
+| PH-Price-Tracker | Consumer price monitoring | active |
 
 ---
 
-## Pulling Updates from Source Repos
+## Pulling Updates
 
-```bash
-git subtree pull --prefix=PH-FX-Dashboard \
+```powershell
+git subtree pull --prefix=PH-FX-Dashboard `
   https://github.com/raldisk/PH-FX-Dashboard.git master --squash
 
-git subtree pull --prefix=PH-Regional-Inequality \
+git subtree pull --prefix=PH-Regional-Inequality `
   https://github.com/raldisk/PH-Regional-Inequality.git master --squash
 
-git subtree pull --prefix=PH-Economic-Tracker \
+git subtree pull --prefix=PH-Economic-Tracker `
   https://github.com/raldisk/PH-Economic-Tracker.git master --squash
 
-git subtree pull --prefix=PH-Labor-Analysis \
+git subtree pull --prefix=PH-Labor-Analysis `
   https://github.com/raldisk/PH-Labor-Analysis.git master --squash
 
-git subtree pull --prefix=PH-Price-Tracker \
+git subtree pull --prefix=PH-Price-Tracker `
   https://github.com/raldisk/PH-Price-Tracker.git master --squash
 ```
 
