@@ -52,11 +52,11 @@ Each project lives in its own subfolder and retains its independent commit histo
 
 | Project | Description | Status |
 |---|---|---|
-| PH-FX-Dashboard | Exchange rate tracking | active |
-| PH-Regional-Inequality | Socioeconomic disparity analysis | active |
-| PH-Economic-Tracker | Macro indicator monitoring | active |
-| PH-Labor-Analysis | Labor market data | active |
-| PH-Price-Tracker | Consumer price monitoring | active |
+| [PH-FX-Dashboard](https://github.com/raldisk/PH-DEP/tree/master/PH-FX-Dashboard) | Exchange rate tracking | active |
+| [PH-Regional-Inequality](https://github.com/raldisk/PH-DEP/tree/master/PH-Regional-Inequality) | Socioeconomic disparity analysis | active |
+| [PH-Economic-Tracker](https://github.com/raldisk/PH-DEP/tree/master/PH-Economic-Tracker) | Macro indicator monitoring | active |
+| [PH-Labor-Analysis](https://github.com/raldisk/PH-DEP/tree/master/PH-Labor-Analysis) | Labor market data | active |
+| [PH-Price-Tracker](https://github.com/raldisk/PH-DEP/tree/master/PH-Price-Tracker) | Consumer price monitoring | active |
 
 ---
 
