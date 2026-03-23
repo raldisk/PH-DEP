@@ -1,0 +1,47 @@
+<svg width="800" height="200" viewBox="0 0 800 200" xmlns="http://www.w3.org/2000/svg" style="background:#0d1117;border-radius:12px">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0f2027"/>
+      <stop offset="100%" stop-color="#1a3a2a"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="200" rx="12" fill="url(#bg)"/>
+
+  <!-- Accent bar left -->
+  <rect x="0" y="0" width="4" height="200" rx="2" fill="#1DB954" opacity="0.8"/>
+
+  <!-- Title -->
+  <text x="32" y="52" font-family="'Segoe UI', sans-serif" font-size="28" font-weight="700" fill="#e6edf3">PH-DEP</text>
+  <text x="32" y="76" font-family="'Segoe UI', sans-serif" font-size="13" fill="#8b949e">Philippine Data Engineering Projects</text>
+
+  <!-- Divider -->
+  <line x1="32" y1="92" x2="768" y2="92" stroke="#30363d" stroke-width="1"/>
+
+  <!-- Project pills -->
+  <!-- FX Dashboard -->
+  <rect x="32" y="108" width="134" height="28" rx="6" fill="#0d419d" opacity="0.8"/>
+  <text x="99" y="126" font-family="'Segoe UI', sans-serif" font-size="12" fill="#79c0ff" text-anchor="middle">📈 FX Dashboard</text>
+
+  <!-- Regional Inequality -->
+  <rect x="176" y="108" width="148" height="28" rx="6" fill="#3d1a78" opacity="0.8"/>
+  <text x="250" y="126" font-family="'Segoe UI', sans-serif" font-size="12" fill="#d2a8ff" text-anchor="middle">📊 Regional Inequality</text>
+
+  <!-- Economic Tracker -->
+  <rect x="334" y="108" width="140" height="28" rx="6" fill="#7d2a10" opacity="0.8"/>
+  <text x="404" y="126" font-family="'Segoe UI', sans-serif" font-size="12" fill="#ffa657" text-anchor="middle">🏦 Economic Tracker</text>
+
+  <!-- Labor Analysis -->
+  <rect x="484" y="108" width="128" height="28" rx="6" fill="#5a3e10" opacity="0.8"/>
+  <text x="548" y="126" font-family="'Segoe UI', sans-serif" font-size="12" fill="#e3b341" text-anchor="middle">👷 Labor Analysis</text>
+
+  <!-- Price Tracker -->
+  <rect x="622" y="108" width="112" height="28" rx="6" fill="#0f4429" opacity="0.8"/>
+  <text x="678" y="126" font-family="'Segoe UI', sans-serif" font-size="12" fill="#56d364" text-anchor="middle">🛒 Price Tracker</text>
+
+  <!-- Bottom line -->
+  <line x1="32" y1="152" x2="768" y2="152" stroke="#30363d" stroke-width="1"/>
+  <text x="32" y="172" font-family="'Segoe UI', sans-serif" font-size="11" fill="#484f58">Python · pandas · matplotlib · PSA · BSP · NEDA</text>
+  <text x="768" y="172" font-family="'Segoe UI', sans-serif" font-size="11" fill="#484f58" text-anchor="end">github.com/raldisk</text>
+</svg>
