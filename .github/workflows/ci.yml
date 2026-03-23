@@ -1,0 +1,83 @@
+name: CI
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+env:
+  DATABASE_URL: postgresql://inequality:inequality@localhost:5432/ph_inequality
+
+jobs:
+
+  test:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER:     inequality
+          POSTGRES_PASSWORD: inequality
+          POSTGRES_DB:       ph_inequality
+        options: >-
+          --health-cmd "pg_isready -U inequality -d ph_inequality"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt pytest pytest-cov ruff
+
+      - name: Lint (ruff)
+        run: ruff check scripts/ dashboard/ tests/
+
+      - name: Generate sample data
+        run: python scripts/download_data.py --generate-sample
+
+      - name: Unit tests
+        run: pytest tests/ -v --tb=short
+
+      - name: Load schema into PostgreSQL
+        run: psql $DATABASE_URL -f sql/schema.sql
+
+      - name: Load sample data into PostgreSQL
+        run: |
+          python -c "
+          import pandas as pd
+          from sqlalchemy import create_engine
+          import os
+          engine = create_engine(os.environ['DATABASE_URL'])
+          for f, t in [
+              ('data/raw/fies_2023.csv',                   'fies_2023'),
+              ('data/raw/fies_2021.csv',                   'fies_2021'),
+              ('data/raw/poverty_provincial_2023.csv',     'poverty_provincial'),
+              ('data/raw/poverty_sae_municipal_2023.csv',  'poverty_sae_municipal'),
+              ('data/raw/census_2020_regional.csv',        'census_2020'),
+              ('data/raw/grdp_regional.csv',               'grdp_regional'),
+          ]:
+              pd.read_csv(f).to_sql(t, engine, schema='raw', if_exists='replace', index=False)
+              print(f'Loaded {t}')
+          "
+
+      - name: Execute notebook 01 (data loading audit)
+        run: |
+          jupyter nbconvert \
+            --to notebook \
+            --execute \
+            --ExecutePreprocessor.timeout=120 \
+            --output notebooks/01_data_loading_audit_executed.ipynb \
+            notebooks/01_data_loading_audit.ipynb
+
+      - name: Validate download_data --validate-only
+        run: python scripts/download_data.py --validate-only

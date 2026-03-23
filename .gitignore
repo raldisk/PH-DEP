@@ -1,0 +1,33 @@
+# Environment
+.env
+.venv/
+venv/
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+
+# Data — raw files not committed (too large / proprietary)
+data/raw/*.csv
+data/raw/*.xlsx
+data/geo/*.geojson
+data/geo/*.json
+data/processed/
+
+# Output — commit screenshots not binary BI files
+output/*.pbix
+output/*.twbx
+output/*.xlsx
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
