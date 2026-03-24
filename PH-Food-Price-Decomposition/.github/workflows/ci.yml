@@ -1,0 +1,97 @@
+name: CI
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+  schedule:
+    - cron: "0 2 * * 1"   # Weekly Monday 10AM Manila (after PSA publishes)
+
+env:
+  DATABASE_URL: postgresql://food:food@localhost:5432/ph_food_prices
+
+jobs:
+
+  test:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER:     food
+          POSTGRES_PASSWORD: food
+          POSTGRES_DB:       ph_food_prices
+        options: >-
+          --health-cmd "pg_isready -U food -d ph_food_prices"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt pytest pytest-cov ruff
+
+      - name: Lint (ruff)
+        run: ruff check scripts/ dashboard/ tests/
+
+      - name: Generate sample data
+        run: |
+          python scripts/scrape_psa_prices.py --generate-sample
+          python scripts/scrape_doe_fuel.py --generate-sample
+
+      - name: Unit tests
+        run: pytest tests/ -v --tb=short
+
+      - name: Load schema into PostgreSQL
+        run: psql $DATABASE_URL -f sql/schema.sql
+
+      - name: Load sample data
+        run: |
+          python -c "
+          import pandas as pd
+          from sqlalchemy import create_engine
+          import os
+          engine = create_engine(os.environ['DATABASE_URL'])
+          dfs = [
+              ('data/raw/psa_prices_sample.csv',  'psa_price_situationer'),
+              ('data/raw/doe_fuel_prices.csv',     'doe_fuel_prices'),
+          ]
+          for path, table in dfs:
+              try:
+                  pd.read_csv(path).to_sql(table, engine, schema='raw',
+                                           if_exists='replace', index=False)
+                  print(f'Loaded {table}')
+              except FileNotFoundError:
+                  print(f'Skipped {path} — not found')
+          "
+
+      - name: Validate PSA schema
+        run: python scripts/scrape_psa_prices.py --validate-only
+
+      - name: Execute notebook 01
+        run: |
+          jupyter nbconvert \
+            --to notebook \
+            --execute \
+            --ExecutePreprocessor.timeout=120 \
+            --output notebooks/01_data_loading_audit_executed.ipynb \
+            notebooks/01_data_loading_audit.ipynb
+
+      - name: Execute notebook 05 (STL)
+        run: |
+          jupyter nbconvert \
+            --to notebook \
+            --execute \
+            --ExecutePreprocessor.timeout=300 \
+            --output notebooks/05_stl_decomposition_executed.ipynb \
+            notebooks/05_stl_decomposition.ipynb
