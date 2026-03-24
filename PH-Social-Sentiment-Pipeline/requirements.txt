@@ -1,0 +1,16 @@
+pydantic>=2.5
+pydantic-settings>=2.1
+psycopg2-binary>=2.9
+requests>=2.31
+confluent-kafka>=2.3
+faust-streaming>=0.10
+transformers>=4.35
+torch>=2.1
+vaderSentiment>=3.3
+dbt-postgres>=1.7
+typer[all]>=0.9
+rich>=13.0
+streamlit>=1.35
+plotly>=5.18
+pandas>=2.1
+openpyxl>=3.1

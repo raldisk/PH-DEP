@@ -1,0 +1,44 @@
+[
+  {
+    "trends": [
+      {
+        "name": "#WeLoveTheEarth",
+        "url": "http://twitter.com/search?q=%23WeLoveTheEarth",
+        "query": "%23WeLoveTheEarth",
+        "tweet_volume": 987654
+      },
+      {
+        "name": "Earth Song",
+        "url": "http://twitter.com/search?q=%22Earth+Song%22",
+        "query": "%22Earth+Song%22",
+        "tweet_volume": 456789
+      },
+      {
+        "name": "#GreenNewDeal",
+        "url": "http://twitter.com/search?q=%23GreenNewDeal",
+        "query": "%23GreenNewDeal",
+        "tweet_volume": 234567
+      },
+      {
+        "name": "#EarthDay",
+        "url": "http://twitter.com/search?q=%23EarthDay",
+        "query": "%23EarthDay",
+        "tweet_volume": 876543
+      },
+      {
+        "name": "#ZeroWaste",
+        "url": "http://twitter.com/search?q=%23ZeroWaste",
+        "query": "%23ZeroWaste",
+        "tweet_volume": 112233
+      }
+    ],
+    "as_of": "2019-04-19T12:00:00Z",
+    "created_at": "2019-04-19T12:00:00Z",
+    "locations": [
+      {
+        "name": "United States",
+        "woeid": 23424977
+      }
+    ]
+  }
+]

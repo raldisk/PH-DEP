@@ -1,0 +1,83 @@
+version: "3.9"
+
+services:
+
+  zookeeper:
+    image: bitnami/zookeeper:3.9
+    environment:
+      ALLOW_ANONYMOUS_LOGIN: "yes"
+    volumes:
+      - zk_data:/bitnami/zookeeper
+
+  kafka:
+    image: bitnami/kafka:3.6
+    depends_on: [zookeeper]
+    environment:
+      KAFKA_CFG_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_CFG_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
+      KAFKA_CFG_LISTENERS: PLAINTEXT://:9092
+      ALLOW_PLAINTEXT_LISTENER: "yes"
+      KAFKA_CFG_AUTO_CREATE_TOPICS_ENABLE: "true"
+    volumes:
+      - kafka_data:/bitnami/kafka
+    ports:
+      - "9092:9092"
+    healthcheck:
+      test: ["CMD-SHELL", "kafka-topics.sh --bootstrap-server localhost:9092 --list"]
+      interval: 15s
+      timeout: 10s
+      retries: 5
+
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER:     sentiment
+      POSTGRES_PASSWORD: sentiment
+      POSTGRES_DB:       ph_sentiment
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U sentiment -d ph_sentiment"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  simulator:
+    build: .
+    env_file: .env
+    environment:
+      PH_SENTIMENT_PG_HOST: postgres
+      PH_SENTIMENT_KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+      PH_SENTIMENT_MODE: simulate
+    depends_on:
+      postgres: { condition: service_healthy }
+      kafka:    { condition: service_healthy }
+    command: ["python", "scripts/run_simulation.py"]
+
+  streamlit:
+    build: .
+    env_file: .env
+    environment:
+      PH_SENTIMENT_PG_HOST: postgres
+    depends_on:
+      postgres: { condition: service_healthy }
+    ports:
+      - "8501:8501"
+    command: >
+      bash -c "streamlit run dashboard/app.py
+        --server.port=8501
+        --server.address=0.0.0.0
+        --server.headless=true"
+
+  adminer:
+    image: adminer:4
+    ports:
+      - "8080:8080"
+    depends_on: [postgres]
+
+volumes:
+  zk_data:
+  kafka_data:
+  pg_data:

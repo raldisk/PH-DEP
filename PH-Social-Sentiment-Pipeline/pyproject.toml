@@ -1,0 +1,56 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.backends.legacy:build"
+
+[project]
+name = "ph-social-sentiment-pipeline"
+version = "0.1.0"
+description = "Real-time PH social media sentiment pipeline — Kafka → PostgreSQL → Streamlit"
+requires-python = ">=3.11"
+dependencies = [
+    "pydantic>=2.5",
+    "pydantic-settings>=2.1",
+    "psycopg2-binary>=2.9",
+    "requests>=2.31",
+    "confluent-kafka>=2.3",
+    "faust-streaming>=0.10",
+    "transformers>=4.35",
+    "torch>=2.1",
+    "vaderSentiment>=3.3",
+    "dbt-postgres>=1.7",
+    "typer[all]>=0.9",
+    "rich>=13.0",
+]
+
+[project.optional-dependencies]
+dashboard = [
+    "streamlit>=1.35",
+    "plotly>=5.18",
+    "pandas>=2.1",
+    "wordcloud>=1.9",
+]
+export = [
+    "openpyxl>=3.1",
+    "pandas>=2.1",
+]
+dev = [
+    "pytest>=7.4",
+    "pytest-cov>=4.1",
+    "ruff>=0.1",
+]
+
+[project.scripts]
+ph-sentiment = "ph_sentiment.pipeline:app"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = [
+    "integration: marks tests requiring a live PostgreSQL connection",
+]

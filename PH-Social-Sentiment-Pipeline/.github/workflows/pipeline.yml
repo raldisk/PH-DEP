@@ -1,0 +1,81 @@
+name: CI Pipeline
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+env:
+  PH_SENTIMENT_POSTGRES_DSN: postgresql://sentiment:sentiment@localhost:5432/ph_sentiment
+  PH_SENTIMENT_PG_HOST:      localhost
+  PH_SENTIMENT_PG_USER:      sentiment
+  PH_SENTIMENT_PG_PASSWORD:  sentiment
+  PH_SENTIMENT_PG_DBNAME:    ph_sentiment
+  PH_SENTIMENT_MODE:         simulate
+
+jobs:
+
+  test:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER:     sentiment
+          POSTGRES_PASSWORD: sentiment
+          POSTGRES_DB:       ph_sentiment
+        options: >-
+          --health-cmd "pg_isready -U sentiment -d ph_sentiment"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: Install dependencies (no heavy torch/transformers in CI)
+        run: |
+          pip install pydantic pydantic-settings psycopg2-binary requests \
+            vaderSentiment pytest pytest-cov ruff
+
+      - name: Install package
+        run: pip install -e . --no-deps
+
+      - name: Lint (ruff)
+        run: ruff check src/ scripts/ tests/
+
+      - name: Unit tests (no integration)
+        run: pytest tests/ -v --tb=short -m "not integration"
+
+      - name: Ensure schema
+        run: python -c "
+          from ph_sentiment.loader import ensure_schema
+          ensure_schema()
+          print('Schema OK')
+        "
+
+      - name: Simulation dry-run (no Kafka needed)
+        run: python scripts/run_simulation.py --dry-run
+
+      - name: dbt compile check
+        run: |
+          pip install dbt-postgres
+          dbt deps --profiles-dir transforms
+          dbt compile --profiles-dir transforms
+        working-directory: transforms
+
+  docker:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build Docker image
+        run: docker compose build --no-cache

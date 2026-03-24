@@ -1,0 +1,12 @@
+ph_sentiment:
+  target: dev
+  outputs:
+    dev:
+      type: postgres
+      host: "{{ env_var('PH_SENTIMENT_PG_HOST', 'localhost') }}"
+      port: "{{ env_var('PH_SENTIMENT_PG_PORT', '5432') | int }}"
+      user: "{{ env_var('PH_SENTIMENT_PG_USER', 'sentiment') }}"
+      password: "{{ env_var('PH_SENTIMENT_PG_PASSWORD', 'sentiment') }}"
+      dbname: "{{ env_var('PH_SENTIMENT_PG_DBNAME', 'ph_sentiment') }}"
+      schema: public
+      threads: 4

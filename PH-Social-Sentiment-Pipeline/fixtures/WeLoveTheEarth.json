@@ -1,0 +1,122 @@
+[
+  {
+    "id": "1001",
+    "text": "I love this planet! #WeLoveTheEarth #EarthDay",
+    "lang": "en",
+    "user": {
+      "id": "u001"
+    }
+  },
+  {
+    "id": "1002",
+    "text": "Mahal ko ang ating kalikasan! Ingatan natin ang mundo #WeLoveTheEarth",
+    "lang": "tl",
+    "user": {
+      "id": "u002"
+    }
+  },
+  {
+    "id": "1003",
+    "text": "This song is everything! Protecting our Earth is so important #WeLoveTheEarth @lildicky",
+    "lang": "en",
+    "user": {
+      "id": "u003"
+    }
+  },
+  {
+    "id": "1004",
+    "text": "Hindi pa huli para iligtas ang ating kapaligiran. Sama-sama tayong kumilos! #ClimateAction",
+    "lang": "tl",
+    "user": {
+      "id": "u004"
+    }
+  },
+  {
+    "id": "1005",
+    "text": "Grabe yung pollution dito sa Manila. Kailangan ng seryosong aksyon #SaveThePlanet",
+    "lang": "tl",
+    "user": {
+      "id": "u005"
+    }
+  },
+  {
+    "id": "1006",
+    "text": "Beautiful message from Lil Dicky and friends. We really do love the Earth! \u2764\ufe0f",
+    "lang": "en",
+    "user": {
+      "id": "u006"
+    }
+  },
+  {
+    "id": "1007",
+    "text": "Nakakalungkot na patuloy pa ring nagpapatalo ang kalikasan sa kamay ng tao. #ClimateAction #Philippines",
+    "lang": "tl",
+    "user": {
+      "id": "u007"
+    }
+  },
+  {
+    "id": "1008",
+    "text": "Every day should be Earth Day. Reduce, reuse, recycle! #ZeroWaste #EarthDay",
+    "lang": "en",
+    "user": {
+      "id": "u008"
+    }
+  },
+  {
+    "id": "1009",
+    "text": "Proud to be part of the movement to save our planet #WeLoveTheEarth #Pilipinas",
+    "lang": "en",
+    "user": {
+      "id": "u009"
+    }
+  },
+  {
+    "id": "1010",
+    "text": "Ang ganda ng mensahe ng kanta na ito. Sana lahat ay makinig at kumilos na! #WeLoveTheEarth",
+    "lang": "tl",
+    "user": {
+      "id": "u010"
+    }
+  },
+  {
+    "id": "1011",
+    "text": "Disappointing that world leaders still don't take climate change seriously #ClimateAction",
+    "lang": "en",
+    "user": {
+      "id": "u011"
+    }
+  },
+  {
+    "id": "1012",
+    "text": "Ayaw ko na ng init! Global warming na talaga ito. #SaveThePlanet #ClimateChange",
+    "lang": "tl",
+    "user": {
+      "id": "u012"
+    }
+  },
+  {
+    "id": "1013",
+    "text": "What a powerful collab! Leonardo DiCaprio, Ariana Grande, and more united for Earth \ud83c\udf0d #WeLoveTheEarth",
+    "lang": "en",
+    "user": {
+      "id": "u013"
+    }
+  },
+  {
+    "id": "1014",
+    "text": "Sana mabago ang paraan ng pamumuhay ng mga tao para sa kalikasan natin #EarthDay",
+    "lang": "tl",
+    "user": {
+      "id": "u014"
+    }
+  },
+  {
+    "id": "1015",
+    "text": "The Amazon is burning, coral reefs are dying. Wake up! #ClimateAction #SaveThePlanet",
+    "lang": "en",
+    "user": {
+      "id": "u015"
+    }
+  }
+]

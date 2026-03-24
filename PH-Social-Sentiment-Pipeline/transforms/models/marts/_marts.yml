@@ -1,0 +1,38 @@
+version: 2
+
+models:
+  - name: sentiment_hourly
+    description: "Per-topic positive/neutral/negative tweet counts by hour (Manila time)"
+    columns:
+      - name: hour_manila
+        tests: [not_null]
+      - name: topic_name
+        tests: [not_null]
+      - name: total
+        tests: [not_null]
+      - name: sentiment_score
+        description: "Net sentiment: (positive - negative) / total, range -1.0 to 1.0"
+
+  - name: trending_topics
+    description: "Daily topic volume + sentiment score + velocity. Top 10 driver for Streamlit."
+    columns:
+      - name: topic_name
+        tests: [not_null]
+      - name: day_manila
+        tests: [not_null]
+      - name: dominant_sentiment
+        tests:
+          - accepted_values:
+              values: ['positive', 'neutral', 'negative']
+
+  - name: keyword_volume
+    description: "Top 50 hashtags and mentions by day with sentiment tilt"
+    columns:
+      - name: keyword
+        tests: [not_null]
+      - name: keyword_type
+        tests:
+          - accepted_values:
+              values: ['hashtag', 'mention']
+      - name: day_manila
+        tests: [not_null]

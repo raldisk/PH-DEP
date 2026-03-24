@@ -1,0 +1,32 @@
+# Environment
+.env
+.venv/
+venv/
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+
+# dbt
+transforms/target/
+transforms/dbt_packages/
+transforms/logs/
+
+# HuggingFace model cache
+~/.cache/huggingface/
+
+# Output
+output/*.pbix
+output/*.twbx
+output/*.xlsx
+
+# Jupyter
+.ipynb_checkpoints/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
